@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TurboFetch</title>
+    <link rel="stylesheet" href="ui.css" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body class="popup">
+    <header>
+      <div class="brand">
+        <img src="icons/48.png" width="40px" height="40px" alt="" /><span
+          >TurboFetch</span
+        >
+      </div>
+      <div class="hbtns">
+        <button
+          id="openMgr"
+          class="iconbtn"
+          title="Download manager"
+          aria-label="Open download manager"
+        ></button>
+        <button
+          id="openSet"
+          class="iconbtn"
+          title="Settings"
+          aria-label="Settings"
+        ></button>
+      </div>
+    </header>
+
+    <main>
+      <div class="field">
+        <span id="linkIc"></span>
+        <input
+          id="url"
+          type="url"
+          placeholder="Paste a video or file link"
+          spellcheck="false"
+          aria-label="Link"
+        />
+        <button id="paste" class="btn sm" type="button">Paste</button>
+      </div>
+
+      <div id="notice"></div>
+      <section id="media" hidden></section>
+
+      <section id="picker" hidden>
+        <div id="tabs" class="seg" role="tablist"></div>
+        <div id="panel"></div>
+        <div id="opts" class="opts"></div>
+        <div class="actions">
+          <button id="go" class="btn primary big" type="button">
+            <span id="goIc"></span><span id="goLabel">Download</span>
+          </button>
+          <button
+            id="later"
+            class="iconbtn sq"
+            type="button"
+            title="Add to the list without starting (download later)"
+            aria-label="Download later"
+          ></button>
+          <button
+            id="copy"
+            class="iconbtn sq"
+            type="button"
+            title="Copy direct link"
+            aria-label="Copy direct link"
+            hidden
+          ></button>
+        </div>
+      </section>
+
+      <section id="activity">
+        <div class="sec-head">
+          <h3>Downloads</h3>
+          <button id="all" class="btn sm" type="button">Open manager</button>
+        </div>
+        <div id="jobs" class="joblist"></div>
+        <div id="empty" class="empty">
+          <span id="emptyIc"></span
+          ><span
+            >Nothing downloading yet.<br />Pick a quality above to start.</span
+          >
+        </div>
+      </section>
+    </main>
+    <script src="shared.js"></script>
+    <script src="jobs-ui.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

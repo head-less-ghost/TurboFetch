@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TurboFetch</title>
+    <link rel="stylesheet" href="ui.css" />
+    <link rel="stylesheet" href="manager.css" />
+  </head>
+  <body class="manager">
+    <div class="app">
+      <aside class="side">
+        <div class="brand">
+          <img src="icons/48.png" width="45" height="45" alt="" /><span
+            id="sometext"
+            >TurboFetch</span
+          >
+        </div>
+        <nav id="nav">
+          <a href="#downloads" data-view="downloads"
+            ><span data-ic="list"></span><span class="lbl">Downloads</span
+            ><span id="navCount" class="count-pill" hidden></span
+          ></a>
+          <a href="#settings" data-view="settings"
+            ><span data-ic="gear"></span><span class="lbl">Settings</span></a
+          >
+          <a href="#setup" data-view="setup"
+            ><span data-ic="shield"></span
+            ><span class="lbl">Setup &amp; updates</span
+            ><span id="navDot" class="dot" hidden></span
+          ></a>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <!-- ================= Downloads ================= -->
+        <section id="v-downloads" class="view">
+          <div class="page-head">
+            <div>
+              <h1>Downloads</h1>
+              <p id="summary" class="mute">Nothing running.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn sm" data-bulk="pauseAll">
+                <span data-ic="pause" data-s="15"></span>Pause all
+              </button>
+              <button class="btn sm" data-bulk="resumeAll">
+                <span data-ic="play" data-s="15"></span>Resume all
+              </button>
+              <button class="btn sm" data-bulk="clearFinished">
+                <span data-ic="trash" data-s="15"></span>Clear finished
+              </button>
+            </div>
+          </div>
+          <div class="field quick">
+            <span data-ic="link" data-s="16"></span
+            ><input
+              id="quick"
+              type="url"
+              placeholder="Paste a link to add it with your default quality"
+              spellcheck="false"
+            /><button id="quickAdd" class="btn primary sm">
+              <span data-ic="plus" data-s="15"></span>Add
+            </button>
+          </div>
+          <div class="seg filters" id="filters" role="tablist">
+            <button data-f="all" aria-selected="true">All</button
+            ><button data-f="active">Active</button
+            ><button data-f="paused">Paused</button
+            ><button data-f="done">Done</button
+            ><button data-f="failed">Failed</button>
+          </div>
+          <div id="list" class="joblist grid"></div>
+          <div id="empty" class="empty">
+            <span data-ic="download" data-s="30"></span
+            ><b id="emptyTitle">No downloads yet</b
+            ><span id="emptySub"
+              >Open a video, click the TurboFetch icon, and pick a
+              quality.</span
+            >
+          </div>
+        </section>
+
+        <!-- ================= Settings ================= -->
+        <section id="v-settings" class="view" hidden>
+          <div class="page-head">
+            <div>
+              <h1>Settings</h1>
+              <p class="mute">Changes save automatically.</p>
+            </div>
+          </div>
+          <div class="cards">
+            <div class="card" id="idk1">
+              <h2>Where files go</h2>
+              <label class="choice"
+                ><input type="radio" name="via" value="disk" /><span
+                  class="dotr"
+                ></span
+                ><span
+                  ><b>Save to a folder with the helper</b
+                  ><small
+                    >Best quality: merges video and audio, 1080p to 4K, MP3
+                    conversion, subtitles, pause and resume.</small
+                  ></span
+                ></label
+              >
+              <label class="choice"
+                ><input type="radio" name="via" value="chrome" /><span
+                  class="dotr"
+                ></span
+                ><span
+                  ><b>Send the link to Chrome</b
+                  ><small
+                    >Chrome’s own download list handles the file. YouTube only
+                    offers ready-made files this way (up to about 720p).</small
+                  ></span
+                ></label
+              >
+              <div id="dirRow" class="stack">
+                <label class="lab" for="dir">Save folder</label>
+                <div class="inline">
+                  <input
+                    id="dir"
+                    data-key="dir"
+                    class="plain"
+                    placeholder="~/Downloads/TurboFetch"
+                    spellcheck="false"
+                  /><button id="browse" class="btn">Browse…</button>
+                </div>
+              </div>
+              <h2>Browser</h2>
+              <label class="switch"
+                ><input type="checkbox" data-key="ytButton" /><span
+                  class="sw"
+                ></span
+                ><span
+                  ><b>Show a download button on YouTube</b
+                  ><small
+                    >Sits next to Like and Share on watch pages. Reload open
+                    YouTube tabs after changing.</small
+                  ></span
+                ></label
+              >
+              <label class="switch"
+                ><input type="checkbox" data-key="notify" /><span
+                  class="sw"
+                ></span
+                ><span><b>Notify me when a download finishes</b></span></label
+              >
+              <div class="stack">
+                <label class="lab">Theme</label>
+                <div class="seg" id="themeSeg" style="max-width: 280px">
+                  <button data-theme="auto">Auto</button
+                  ><button data-theme="light">Light</button
+                  ><button data-theme="dark">Dark</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="idk2">
+              <h2>Defaults</h2>
+              <p class="hint">
+                Used by the YouTube button, the right-click menu and “Add” on
+                the Downloads page.
+              </p>
+              <div class="grid2">
+                <div class="stack">
+                  <label class="lab" for="defaultQuality">Video quality</label
+                  ><select
+                    id="defaultQuality"
+                    data-key="defaultQuality"
+                    class="plain"
+                  >
+                    <option value="best">Best available</option>
+                    <option value="2160">Up to 2160p (4K)</option>
+                    <option value="1440">Up to 1440p</option>
+                    <option value="1080">Up to 1080p</option>
+                    <option value="720">Up to 720p</option>
+                    <option value="480">Up to 480p</option>
+                    <option value="audio">Audio only</option>
+                  </select>
+                </div>
+                <div class="stack">
+                  <label class="lab" for="audioFormat">Audio format</label
+                  ><select
+                    id="audioFormat"
+                    data-key="audioFormat"
+                    class="plain"
+                  >
+                    <option value="mp3">MP3</option>
+                    <option value="m4a">M4A (AAC)</option>
+                    <option value="original">Original stream</option>
+                  </select>
+                </div>
+                <div class="stack">
+                  <label class="lab" for="subLang">Subtitle language</label
+                  ><input
+                    id="subLang"
+                    data-key="subLang"
+                    class="plain"
+                    placeholder="en"
+                    spellcheck="false"
+                  />
+                </div>
+                <div class="stack">
+                  <label class="lab" for="subFormat">Subtitle format</label
+                  ><select id="subFormat" data-key="subFormat" class="plain">
+                    <option value="srt">SRT</option>
+                    <option value="vtt">VTT</option>
+                  </select>
+                </div>
+                <div class="stack">
+                  <label class="lab" for="maxParallel"
+                    >Downloads at the same time</label
+                  ><select
+                    id="maxParallel"
+                    data-key="maxParallel"
+                    data-num
+                    class="plain"
+                  >
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+              </div>
+              <label class="switch"
+                ><input type="checkbox" data-key="compat" /><span
+                  class="sw"
+                ></span
+                ><span
+                  ><b>Prefer broadly compatible video formats</b
+                  ><small
+                    >Prefers H.264 video and AAC audio for wider player support.
+                    Turn off for smaller VP9/AV1 files.</small
+                  ></span
+                ></label
+              >
+              <label class="switch"
+                ><input type="checkbox" data-key="subEmbed" /><span
+                  class="sw"
+                ></span
+                ><span
+                  ><b>Embed subtitles when downloading video</b
+                  ><small
+                    >Puts the subtitle track inside the video file.</small
+                  ></span
+                ></label
+              >
+            </div>
+
+            <div class="card" id="idk3">
+              <h2>Advanced</h2>
+              <div class="stack">
+                <label class="lab" for="cookies"
+                  >Use cookies from a browser</label
+                ><select
+                  id="cookies"
+                  data-key="cookies"
+                  class="plain"
+                  style="max-width: 280px"
+                >
+                  <option value="">Off</option>
+                  <option value="chrome">Chrome</option>
+                  <option value="brave">Brave</option>
+                  <option value="edge">Edge</option>
+                  <option value="firefox">Firefox</option>
+                  <option value="safari">Safari</option>
+                </select>
+                <small class="hint"
+                  >Fixes “sign in to confirm you’re not a bot”, age-restricted
+                  and members-only videos. macOS may ask for Keychain access the
+                  first time.</small
+                >
+              </div>
+              <div class="stack">
+                <label class="lab" for="template">File name template</label
+                ><input
+                  id="template"
+                  data-key="template"
+                  class="plain"
+                  placeholder="%(title).150B [%(id)s].%(ext)s"
+                  spellcheck="false"
+                />
+                <small class="hint"
+                  >A yt-dlp output template. Leave empty for the default.</small
+                >
+              </div>
+            </div>
+
+            <div class="card support-card" id="idk4">
+              <div class="support-heading">
+                <span class="support-heart" aria-hidden="true">♥</span>
+                <div>
+                  <h2>Support TurboFetch</h2>
+                  <p class="hint">
+                    If this project makes your workflow easier, a crypto
+                    donation helps support continued development.
+                  </p>
+                </div>
+              </div>
+              <div class="wallet-row">
+                <div><b>TON</b><small>TON network</small></div>
+                <code>UQAXA1ITJ4Y-5sHeRCjs7KS9jKi-Y_bpcx0LEXnB3yRq-oSl</code>
+              </div>
+              <div class="wallet-row">
+                <div><b>Ethereum / USDT</b><small>Ethereum network</small></div>
+                <code>0xb381dc93fb3a40836d40cc438c3bb67f1b08b1a5</code>
+              </div>
+              <div class="inline">
+                <button id="supportProject" class="btn primary">
+                  <span aria-hidden="true">♥</span>Cheak Out My Other Project</button
+                ><span class="hint">Thank you for supporting open source.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= Setup ================= -->
+        <section id="v-setup" class="view" hidden>
+          <div class="page-head">
+            <div>
+              <h1>Setup &amp; updates</h1>
+              <p class="mute">
+                Check TurboFetch components, updates and platform requirements.
+              </p>
+            </div>
+            <button id="recheck" class="btn sm">
+              <span data-ic="refresh" data-s="15"></span>Check again
+            </button>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <h2>Requirements</h2>
+              <div id="tools" class="tools">
+                <div class="skel" style="height: 56px"></div>
+              </div>
+            </div>
+            <div class="card" id="updCard">
+              <h2>yt-dlp</h2>
+              <p class="hint">
+                Sites change often. Keeping yt-dlp current is the single best
+                fix when a download stops working.
+              </p>
+              <div id="updState" class="upd"></div>
+              <div class="inline">
+                <button id="chkUpd" class="btn">
+                  <span data-ic="refresh" data-s="16"></span>Check for update</button
+                ><button id="doUpd" class="btn primary" hidden>
+                  Update now
+                </button>
+              </div>
+              <pre id="updLog" class="code" hidden></pre>
+            </div>
+            <div class="card">
+              <h2>Good to know</h2>
+              <ul class="plainlist">
+                <li>
+                  <b>Chrome 110 or newer</b>, on Windows or macOS. Brave and
+                  Edge work too.
+                </li>
+                <li>
+                  <b>Windows:</b> run <code>build_windows.ps1</code> to package
+                  and register the native helper. macOS uses
+                  <code>install_mac.sh</code>.
+                </li>
+                <li>
+                  Install <b>yt-dlp</b>, <b>FFmpeg</b> and <b>Deno</b>. On
+                  Windows use winget; on macOS use Homebrew.
+                </li>
+                <li>
+                  If something fails, the helper writes a log you can open
+                  below.
+                </li>
+              </ul>
+              <div class="inline">
+                <button id="openLog" class="btn sm" disabled>
+                  Open helper log</button
+                ><span id="hostInfo" class="mute"></span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="shared.js"></script>
+    <script src="jobs-ui.js"></script>
+    <script src="manager.js"></script>
+  </body>
+</html>

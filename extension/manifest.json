@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "TurboFetch",
+  "version": "2.1.0",
+  "description": "TurboFetch video downloader for video, audio and subtitles across 1800+ sites.",
+  "minimum_chrome_version": "110",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyVSjtEDGCitMptXbQKVVS1uGB7GCqIc9OUAvHzd6EBO+nw1YRhh2qgEyy30x5EbDVwjyLoN+NBYBP3WcPNpl9rgbjHgRVnflT432mfHiB1yP9MjmielLY1jfINnZekF4kd79N2d/dQhgvQ6XY5j+Rb3m8KsLQle4mcF7v4RX75DsPsNOh6rM7LQMGFDM32AbWQ5NLrxqqtdPnAydO8pZTxoiZaeUwRqUOsZJBL3eO2WrjALoZS2BkE6HpWxn9hCqN4KWla03jgYL828Dhse8g7secLkiTb+f+0MFLzTpbJxPkGdNi0DPCCZAbqAVOUOjSgLVGjAlWAwKSyOKQRc97wIDAQAB",
+  "permissions": [
+    "activeTab",
+    "nativeMessaging",
+    "contextMenus",
+    "storage",
+    "downloads",
+    "notifications",
+    "clipboardRead",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "https://api.github.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "TurboFetch",
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/48.png"
+    }
+  },
+  "options_ui": {
+    "page": "manager.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://m.youtube.com/*"
+      ],
+      "js": [
+        "shared.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  }
+}
