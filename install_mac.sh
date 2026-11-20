@@ -32,21 +32,14 @@ fi
 
 log "Installing runtime dependencies with Homebrew..."
 brew update
-brew install python yt-dlp ffmpeg deno node
+brew install python yt-dlp ffmpeg deno
 
 PYTHON="$(command -v python3 || true)"
 [[ -n "$PYTHON" ]] || die "python3 was not found after Homebrew installation."
 
 # PhantomJS is legacy and TurboFetch does not call it. Install it as an optional
 # compatibility utility because the user requested it; failure is non-fatal.
-if ! command -v phantomjs >/dev/null 2>&1; then
-  log "Installing legacy PhantomJS compatibility binary (not required by TurboFetch)..."
-  if command -v npm >/dev/null 2>&1; then
-    npm install --global phantomjs-prebuilt || log "WARNING: PhantomJS install failed; TurboFetch does not depend on it."
-  else
-    log "WARNING: npm is unavailable; skipping optional PhantomJS."
-  fi
-fi
+  
 
 if [[ "${2:-}" == "--with-mega" || "${1:-}" == "--with-mega" ]]; then
   brew install --cask megacmd
