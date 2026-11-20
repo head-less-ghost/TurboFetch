@@ -35,12 +35,12 @@
 ## 🧰 Requirements
 
 - Chrome 110+ or a current Chromium-based browser (Brave, Edge, or Chromium).
-- macOS for `install.sh`; Windows users should use `build_windows.ps1`.
+- macOS for `install_mac.sh`; Windows users should use `build_windows.ps1`.
 - Python 3.
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp) — media extraction and downloads.
 - [FFmpeg](https://ffmpeg.org/) — merging separate audio/video streams and audio conversion.
 - [Deno](https://deno.com/) — recommended JavaScript runtime for current YouTube extraction.
-- [Node.js](https://nodejs.org/) — installed by `install.sh` to support the optional PhantomJS installer.
+- [Node.js](https://nodejs.org/) — installed by `install_mac.sh` to support the optional PhantomJS installer.
 - [PhantomJS](https://phantomjs.org/) — legacy compatibility utility only; **TurboFetch does not currently use it**.
 - [MEGAcmd](https://github.com/meganz/MEGAcmd) — optional, only for MEGA links.
 
@@ -55,8 +55,8 @@ Site support and available formats depend on yt-dlp, the source website, and ins
 3. Open Terminal in the repository root and run:
 
    ```bash
-   chmod +x install.sh
-   ./install.sh
+   chmod +x install_mac.sh
+   ./install_mac.sh
    ```
 
    The installer installs Python, yt-dlp, FFmpeg, Deno, and Node.js with Homebrew; attempts to install the legacy PhantomJS binary; installs and self-tests the native helper; and registers it with Chrome and any detected Chromium browsers.
@@ -69,13 +69,13 @@ Site support and available formats depend on yt-dlp, the source website, and ins
 To install optional MEGA support as well:
 
 ```bash
-./install.sh --with-mega
+./install_mac.sh --with-mega
 ```
 
 To remove the native helper registration and installed helper files:
 
 ```bash
-./install.sh --uninstall
+./install_mac.sh --uninstall
 ```
 
 Remove the unpacked browser extension separately from the browser's extensions page.
@@ -110,7 +110,7 @@ The Windows build script builds the native host with PyInstaller. It does not in
 
 ### Linux
 
-Linux is not currently supported by the native helper's installation and path handling. The supplied `install.sh` intentionally stops on Linux rather than creating a broken native-messaging registration.
+Linux is not currently supported by the native helper's installation and path handling. The supplied `install_mac.sh` intentionally stops on Linux rather than creating a broken native-messaging registration.
 
 ## 🎬 How to use
 
@@ -168,7 +168,7 @@ The Windows build creates `dist/` and `.build-venv/` as generated output.
 - **YouTube requests sign-in or bot confirmation:** enable **Use cookies from a browser** in TurboFetch settings. The browser may ask permission to access stored cookies.
 - **High-resolution downloads fail to merge:** install or update FFmpeg.
 - **YouTube extraction is unreliable:** update yt-dlp and ensure Deno is installed; recent yt-dlp versions can also use Node.js as a fallback.
-- **MEGA links do not work:** install MEGAcmd separately or rerun `./install.sh --with-mega`.
+- **MEGA links do not work:** install MEGAcmd separately or rerun `./install_mac.sh --with-mega`.
 
 macOS helper log:
 
