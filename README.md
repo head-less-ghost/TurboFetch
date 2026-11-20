@@ -190,7 +190,17 @@ Bug reports, focused fixes, and documentation improvements are welcome. Please r
 
 If TurboFetch helps you, consider supporting its development. The donation wallet addresses are displayed in the app's Support panel.
 
-Before publishing, replace the placeholder donation destination in `extension/manager.js` (`DONATION_URL`) with your real support page.
+### 💎 TON
+**Network:** TON
+
+`UQAXA1ITJ4Y-5sHeRCjs7KS9jKi-Y_bpcx0LEXnB3yRq-oSl`
+
+### ⟠ Ethereum (ETH) And 💵 USDT
+**Network:** Ethereum
+
+`0xb381dc93fb3a40836d40cc438c3bb67f1b08b1a5`
+
+### Thank you for supporting my projects! ❤️
 
 ## 📄 License
 
