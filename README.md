@@ -5,7 +5,7 @@
 ### Your browser. Your media. One clean download workflow.
 
 <p>
-  <img src="TurboFetch%20Neon%20Video%20Downloader.png" alt="TurboFetch neon downloader artwork" width="760">
+  <img src="file_000000005de482108344190fc515433a.png" alt="TurboFetch neon downloader artwork" width="760">
 </p>
 
 **A powerful Chromium extension with a native helper for video, audio, subtitles, and direct-file downloads.**
